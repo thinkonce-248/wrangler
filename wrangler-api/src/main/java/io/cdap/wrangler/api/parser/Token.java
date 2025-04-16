@@ -47,6 +47,19 @@ public interface Token extends Serializable {
    *
    * @return {@code TokenType} of the implementation object.
    */
+  public enum TokenType {
+    IDENTIFIER,
+    NUMBER,
+    STRING,
+    BOOLEAN,
+    DATE,
+    BYTESIZE,
+    TIMEDURATION // <- add this
+}
+
+  String getRaw();
+
+
   TokenType type();
 
   /**
@@ -57,3 +70,4 @@ public interface Token extends Serializable {
    */
   JsonElement toJson();
 }
+

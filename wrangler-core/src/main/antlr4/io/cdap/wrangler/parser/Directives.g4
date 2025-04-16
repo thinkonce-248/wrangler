@@ -67,6 +67,14 @@ directive
   )*?
   ;
 
+byteSizeDirective
+  : 'bytes' BYTE_SIZE
+  ;
+
+timeDurationDirective
+  : 'duration' TIME_DURATION
+  ;
+
 ifStatement
   : ifStat elseIfStat* elseStat? '}'
   ;
@@ -140,9 +148,9 @@ numberRange
  ;
 
 value
- : String | Number | Column | Bool
+ : String | Number | BYTE_SIZE | TIME_DURATION | Column | Bool
  ;
-
+ 
 ecommand
  : '!' Identifier
  ;
@@ -215,14 +223,14 @@ StartsWith : '=^';
 NotStartsWith : '!^';
 EndsWith : '=$';
 NotEndsWith : '!$';
-PlusEqual : '+=';
-SubEqual : '-=';
-MulEqual : '*=';
-DivEqual : '/=';
-PerEqual : '%=';
-AndEqual : '&=';
-OrEqual  : '|=';
-XOREqual : '^=';
+PlusEqual : '+=' ;
+SubEqual : '-=' ;
+MulEqual : '*=' ;
+DivEqual : '/=' ;
+PerEqual : '%=' ;
+AndEqual : '&=' ;
+OrEqual  : '|=' ;
+XOREqual : '^=' ;
 Pow      : '^';
 External : '!';
 GT       : '>';
@@ -247,7 +255,6 @@ BackSlash: '\\';
 Dollar   : '$';
 Tilde    : '~';
 
-
 Bool
  : 'true'
  | 'false'
@@ -256,6 +263,14 @@ Bool
 Number
  : Int ('.' Digit*)?
  ;
+
+BYTE_SIZE 
+    : ('0'..'9')+ ('B'|'b'|'K'|'k'|'M'|'m'|'G'|'g'|'T'|'t')   // Matches sizes like "100B", "500MB", "2GB"
+    ;
+
+TIME_DURATION 
+    : ('0'..'9')+ ('s'|'m'|'h'|'d')  // Matches durations like "10s", "3m", "5h", "2d"
+    ;
 
 Identifier
  : [a-zA-Z_\-] [a-zA-Z_0-9\-]*
@@ -293,7 +308,17 @@ UnicodeEscape
    ;
 
 fragment
-   HexDigit : ('0'..'9'|'a'..'f'|'A'..'F') ;
+HexDigit : ('0'..'9'|'a'..'f'|'A'..'F') ;
+
+fragment
+BYTE_UNIT
+  : 'B' | 'KB' | 'MB' | 'GB' | 'TB' | 'PB'
+  ;
+
+fragment
+TIME_UNIT
+  : 'ns' | 'us' | 'ms' | 's' | 'm' | 'h' | 'd'
+  ;
 
 Comment
  : ('//' ~[\r\n]* | '/*' .*? '*/' | '--' ~[\r\n]* ) -> skip

@@ -105,6 +105,11 @@
       <version>2.0.2</version>
       <scope>test</scope>
     </dependency>
+    <dependency>
+  <groupId>io.cdap.wrangler</groupId>
+  <artifactId>wrangler-proto</artifactId>
+  <version>${project.version}</version> <!-- or use the correct version -->
+</dependency>
 
     <!-- External -->
 
@@ -209,6 +214,7 @@
       <artifactId>poi</artifactId>
       <version>${poi.version}</version>
     </dependency>
+  
     <dependency>
       <groupId>org.apache.poi</groupId>
       <artifactId>poi-ooxml</artifactId>
@@ -308,6 +314,18 @@
       <groupId>io.cdap.cdap</groupId>
       <artifactId>cdap-system-app-api</artifactId>
       <version>${cdap.version}</version>
+    </dependency>
+  
+    <dependency>
+      <groupId>io.cdap.wrangler</groupId>
+      <artifactId>wrangler-core</artifactId>
+      <version>4.1.8</version>
+    </dependency>
+  
+    <dependency>
+      <groupId>ch.qos.logback</groupId>
+      <artifactId>logback-core</artifactId>
+      <version>1.2.3</version>
     </dependency>
   </dependencies>
 
